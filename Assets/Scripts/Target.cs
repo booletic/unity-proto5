@@ -24,7 +24,6 @@ public class Target : MonoBehaviour
         targetRb.AddForce(RandomForce(), ForceMode.Impulse);
         targetRb.AddTorque(RandomTorque(), RandomTorque(), RandomTorque());
         transform.position = RandomSpawnPos();
-
     }
 
     // Update is called once per frame
@@ -35,11 +34,14 @@ public class Target : MonoBehaviour
 
     private void OnMouseDown()
     {
-        gameManager.UpdateScore(pointValue);
-        Instantiate(explosionParticle,
-            transform.position,
-            explosionParticle.transform.rotation);
-        Destroy(gameObject);
+        if(gameManager.isGameActive)
+        { 
+            gameManager.UpdateScore(pointValue);
+            Instantiate(explosionParticle,
+                transform.position,
+                explosionParticle.transform.rotation);
+            Destroy(gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
